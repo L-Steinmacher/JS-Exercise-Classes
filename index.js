@@ -62,7 +62,6 @@ class Airplane {
     };
   }
 
-  const Ma = 
   
   /*
     TASK 2
@@ -88,17 +87,16 @@ class Airplane {
 
    fill(gallons){
     return this.tank += gallons;
-  }
+  };
 
-  drive = function(distance){
+  drive(distance){
     this.odometer += distance;
     this.tank -= (distance/this.milesPerGallon)
     if(this.tank === 0){
       return `I ran out of fuel at ${this.odometer} miles!`
     }
-
   }
-  
+}
   /*
     TASK 3
       - Write a Lambdasian class.
@@ -115,7 +113,7 @@ class Airplane {
    constructor(attr){
      this.name = attr.name,
      this.age = attr.age,
-     this.location = attr.location,
+     this.location = attr.location
    }
 
    speak(){
@@ -123,6 +121,14 @@ class Airplane {
    };
     
   }
+
+  const Austen = new Lambdasian({
+    name :'Austen',
+    age: 35,
+    location: 'SF',
+  });
+
+
   
   /*
     TASK 4
@@ -140,10 +146,30 @@ class Airplane {
   */
  class Instructor extends Lambdasian{
    constructor(thing){
-     super(thing)
+     super(thing);
+     this.specialty = thing.specialty;
+     this.favLanguage = thing.favLanguage;
+     this.catchPhrase = thing.catchPhrase
+   }
+   demo(subject){
+     return `Today we are learning about ${subject}`;
+   };
+
+   grade(student, subject){
+     return `${student.name} receives a perfect score on ${subject}`
    }
 
  }
+
+ const Britt = new Instructor({
+   name: 'Britt',
+   age: 'Timeless',
+   location: 'The Great White Nort',
+   specialty: 'Teachifying',
+   favLanguage: 'English?',
+   catchPhrase: 'You have to return in your function.',
+ });
+ Britt.demo('Advanced array methods')
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -159,10 +185,40 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
-     
+ class Student extends Lambdasian {
+   constructor(thing){
+     super(thing);
+     this.previousBackground = thing.previousBackground;
+     this.className = thing.className;
+     this.favSubjects = thing.favSubjects;
+   }
+
+   listSubjects(){
+     return `Loving ${this.favSubjects.join(', ')}`;
+   };
+
+   PRAssignment(subject){
+     return `${this.name} has submitted a PR for ${subject}`;
+   };
+
+   sprintChallenge(subject){
+     return `${this.name} has begun sprint challenge on ${subject}`;
+ };
+
  }
-  
+ const Lucas  = new Student({
+  name: 'Panz',
+  age: 38,
+  location: 'Seattle',
+  specialty: 'algorithms',
+  favLanguage: 'Japanese and Spanish',
+  catchPhrase: 'It would behove you...',
+  previousBackground: 'Chef',
+  favSubjects: 'Advanced array methods and React.'
+ });
+
+ Lucas.sprintChallenge('Advanced array Methods');
+console.log(Lucas.sprintChallenge('Advanced array Methods'));
   /*
     TASK 6
       - Write a ProjectManager class extending Instructor.
