@@ -166,9 +166,12 @@ console.log(subaru.drive(10));
      return `Today we are learning about ${subject}`;
    };
 
-   score(student, points){
-     
-
+   score(student, points){   
+      let critique = 0; 
+    for(let i= 0;i < points; i++){
+      critique += Math.random() < .5 ? -1 : 1;
+    }
+    return student.grade += critique;
    };
 
    grade(student, subject){
@@ -186,6 +189,8 @@ console.log(subaru.drive(10));
    catchPhrase: 'You have to return in your function.',
  });
  Britt.demo('Advanced array methods')
+
+ Britt.score(Lucas, 10)
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
