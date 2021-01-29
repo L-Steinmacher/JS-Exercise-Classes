@@ -78,25 +78,38 @@ class Airplane {
   */
   
  class Car {
-   constructor(model, milesPerGallon){
-     this.model = model,
-     this.milesPerGallon = milesPerGallon,
-     this.tank = 0,
-     this.odometer = 0
-   }
-
-   fill(gallons){
-    return this.tank += gallons;
-  };
-
-  drive(distance){
-    this.odometer += distance;
-    this.tank -= (distance/this.milesPerGallon)
-    if(this.tank === 0){
-      return `I ran out of fuel at ${this.odometer} miles!`
-    }
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
   }
+
+  fill(gallons){
+   return this.tank += gallons;
+ };
+
+ drive(distance){
+   let drivableMiles = this.tank * this.milesPerGallon;
+   console.log(drivableMiles)
+   if(distance <= drivableMiles){
+     this.odometer += distance;
+     return this.tank -= (distance/this.milesPerGallon);            
+   }else{
+     distance = drivableMiles;
+     this.tank = 0;
+     this.odometer += drivableMiles;
+     return `I ran out of fuel at ${this.odometer} miles!`;
+   }
+ }
 }
+
+const subaru = new Car('crosstrek',34);
+
+subaru.fill(10);
+console.log(subaru);
+console.log(subaru.drive(10));
+
   /*
     TASK 3
       - Write a Lambdasian class.
@@ -124,11 +137,9 @@ class Airplane {
 
   const Austen = new Lambdasian({
     name :'Austen',
-    age: 35,
+    age: 40,
     location: 'SF',
   });
-
-
   
   /*
     TASK 4
@@ -153,6 +164,11 @@ class Airplane {
    }
    demo(subject){
      return `Today we are learning about ${subject}`;
+   };
+
+   score(student, points){
+     
+
    };
 
    grade(student, subject){
@@ -191,6 +207,7 @@ class Airplane {
      this.previousBackground = thing.previousBackground;
      this.className = thing.className;
      this.favSubjects = thing.favSubjects;
+     this.grade = thing.grade;
    }
 
    listSubjects(){
@@ -205,6 +222,17 @@ class Airplane {
      return `${this.name} has begun sprint challenge on ${subject}`;
  };
 
+    graduate(){
+      let graduates = undefined;
+      if(this.grade > 70){
+        graduates = true;
+        return `${this.name} graduates Lambda!`
+      }else{
+        graduates = false;
+        return `Keep studying ${this.name}`
+      }
+    }
+
  }
  const Lucas  = new Student({
   name: 'Panz',
@@ -214,7 +242,8 @@ class Airplane {
   favLanguage: 'Japanese and Spanish',
   catchPhrase: 'It would behove you...',
   previousBackground: 'Chef',
-  favSubjects: 'Advanced array methods and React.'
+  favSubjects: 'Advanced array methods and React.',
+  grade: 90,
  });
 
  Lucas.sprintChallenge('Advanced array Methods');
@@ -232,9 +261,32 @@ console.log(Lucas.sprintChallenge('Advanced array Methods'));
           + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
           + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
   */
- class ProjectManager {
-     
+ class ProjectManager extends Instructor{
+   constructor(stuff){
+     super(stuff);
+     this.gradClassName = stuff.gradClassName;
+     this.favInstructor = stuff.favInstructor;
+   }
+     standUp(channel){
+       return `${this.name} announces to ${channel}, @channel standy times!`;
+     };
+
+     debugsCode(student, subject){
+       return `${this.name} debugs ${student.name}'s code on ${subject}`
+     }
  }
+
+ const Michael = new ProjectManager({
+   name: 'Michael the Wizard',
+   age: 33,
+   location: 'Dimley lit room',
+   specialty: ' Debugifying',
+   favLanguage: 'Cool',
+   catchPhrase: 'You spelled return wrong.',
+   gradClassName: 'No clue',
+   favInstructor: 'Im not going there',
+ })
+ Michael.standUp('Web40_help')
   /*
     STRETCH PROBLEM (no tests!)
       - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
